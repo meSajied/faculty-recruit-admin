@@ -6,7 +6,7 @@ function RequiredAuthentication({children}) {
   let loggedIn = useAuth().user;
 
   return(
-      loggedIn ? {children}: <Navigate to='login' />
+      loggedIn ? children : <Navigate to='/login' />
   )
 }
 
