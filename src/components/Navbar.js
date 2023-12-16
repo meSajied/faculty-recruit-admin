@@ -5,11 +5,19 @@ const Navbar = () => {
   return(
       <div>
         <div>
-          <Link to='manage-applicant'>Manage Applicant</Link>
+          <Link to='/post-job'>Post Job</Link>
         </div>
 
         <div>
-          <Link to='post-job'>Post Job</Link>
+          <Link to='/delete-job'>Delete Job</Link>
+        </div>
+
+        <div>
+          <Link to='/remove-applicant'>Remove Applicant</Link>
+        </div>
+
+        <div>
+          <Link to='/change-applicant-applicant'>Change Applicant Password</Link>
         </div>
       </div>
   )
