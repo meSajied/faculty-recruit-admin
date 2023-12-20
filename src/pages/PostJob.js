@@ -97,11 +97,11 @@ const PostJob = () => {
 
     const formData = new FormData(e.currentTarget);
 
-    await axios.post('http://localhost:4414/user/admin/createjobpost', formData, {
+    await axios.post('http://localhost:4414/user/admin/create-job-post', formData, {
       headers: {
         'Content-Type': 'multipart/form-data'
       }
-    })
+    });
   }
 };
 

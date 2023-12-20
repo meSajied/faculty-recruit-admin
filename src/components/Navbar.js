@@ -17,7 +17,7 @@ const Navbar = () => {
         </div>
 
         <div>
-          <Link to='/change-applicant-applicant'>Change Applicant Password</Link>
+          <Link to='/change-applicant-password'>Change Applicant Password</Link>
         </div>
       </div>
   )

@@ -1,0 +1,5 @@
+const RemoveApplicant = () => {
+
+}
+
+export {RemoveApplicant};
