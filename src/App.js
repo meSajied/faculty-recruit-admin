@@ -11,6 +11,8 @@ import {PostJob} from "./pages/PostJob";
 import {ChangeApplicantPassword} from "./pages/ChangeApplicantPassword";
 import {RemoveApplicant} from "./pages/RemoveApplicant";
 
+import './styles/style.css';
+
 function App() {
   return(
       <Suspense fallback={<Loading />}>
@@ -22,7 +24,8 @@ function App() {
             <Route path='login' element={<Login />} />
             <Route path='post-job' element={<RequiredAuthentication
                 children={<PostJob />} />} />
-            <Route path='change-applicant-password' element={<RequiredAuthentication
+            <Route path='change-applicant-password'
+                element={<RequiredAuthentication
                 children={<ChangeApplicantPassword />} />} />
             <Route path='remove-applicant' element={<RequiredAuthentication
                 children={<RemoveApplicant />} />} />

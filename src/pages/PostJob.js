@@ -9,8 +9,8 @@ const PostJob = () => {
           <Navbar />
         </div>
 
-        <div>
-          <form onSubmit={handleSubmit}>
+        <div className="flex items-center justify-center">
+          <form className="bg-gray-200 shadow-md rounded px-8 pt-6 pb-8 mb-4" onSubmit={handleSubmit}>
             <div>
               <input
                   type="hidden"
@@ -20,9 +20,10 @@ const PostJob = () => {
               />
             </div>
 
-            <div>
-              <label htmlFor="title">Title:</label>
+            <div className="mb-4">
+              <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="title">Title:</label>
               <input
+              		className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                   type="text"
                   name="title"
                   onChange={e => e.target.value}
@@ -30,7 +31,7 @@ const PostJob = () => {
               />
             </div>
 
-            <div>
+            <div className="mb-4">
               <label htmlFor="department">Position:</label>
               <select name="department" onChange={e =>
                   e.target.value} required>
@@ -40,7 +41,7 @@ const PostJob = () => {
               </select>
             </div>
 
-            <div>
+            <div className="mb-4">
               <label htmlFor="position">Position:</label>
               <select name="position" onChange={e =>
                   e.target.value} required>
@@ -52,7 +53,7 @@ const PostJob = () => {
               </select>
             </div>
 
-            <div>
+            <div className="mb-4">
               <label htmlFor='advertised'>Advertised:</label>
               <input
                   type="date"
@@ -63,7 +64,7 @@ const PostJob = () => {
               />
             </div>
 
-            <div>
+            <div className="mb-4">
               <label htmlFor='deadline'>Deadline:</label>
               <input
                   type="date"
@@ -73,19 +74,21 @@ const PostJob = () => {
               />
             </div>
 
-            <div>
+            <div className="mb-4">
               <label htmlFor="file">Choose PDF File:</label>
               <input
                   type="file"
                   name="file"
                   accept=".pdf"
+                  className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                   onChange={e =>
                       e.target.files[0]}
                   required
               />
             </div>
-
-            <button type="submit">Submit</button>
+			<div className="mb-6 text-center">
+            <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">Submit</button>
+            </div>
           </form>
         </div>
 
