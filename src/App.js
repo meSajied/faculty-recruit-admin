@@ -9,9 +9,11 @@ import {RequiredAuthentication} from "./account/RequiredAuthentication";
 import {Loading} from "./components/Loading";
 import {PostJob} from "./pages/PostJob";
 import {ChangeApplicantPassword} from "./pages/ChangeApplicantPassword";
-import {RemoveApplicant} from "./pages/RemoveApplicant";
 
 import './styles/style.css';
+import {DeleteJob} from "./pages/DeleteJob";
+import {ChangePassword} from "./pages/ChangePassword";
+import {Logout} from "./account/Logout";
 
 function App() {
   return(
@@ -24,11 +26,16 @@ function App() {
             <Route path='login' element={<Login />} />
             <Route path='post-job' element={<RequiredAuthentication
                 children={<PostJob />} />} />
+            <Route path='delete-job' element={<RequiredAuthentication
+                children={<DeleteJob />} />} />
+            <Route path='change-password' element={<RequiredAuthentication
+              children={<ChangePassword />} />} />
             <Route path='change-applicant-password'
                 element={<RequiredAuthentication
                 children={<ChangeApplicantPassword />} />} />
-            <Route path='remove-applicant' element={<RequiredAuthentication
-                children={<RemoveApplicant />} />} />
+            <Route path='logout'
+                   element={<RequiredAuthentication
+                       children={<Logout />} />} />
           </Routes>
         </BrowserRouter>
       </AuthProvider>

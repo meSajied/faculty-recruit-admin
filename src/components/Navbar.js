@@ -7,7 +7,7 @@ const Navbar = () => {
   return(
       <nav className="font-poppins text-center bg-gray-200 p-3
           space-y-3 sm:space-y-0 sm:flex sm:flex-wrap">
-        <div className="space-y-1 sm:space-y-0 sm:basis-4/5
+        <div className="space-y-1 sm:space-y-0 sm:basis-[60%]
             sm:flex sm:flex-wrap sm:space-x-8">
           <div>
             <Link className="no-underline text-black" to='/post-job'>
@@ -23,28 +23,21 @@ const Navbar = () => {
 
           <div>
             <Link className="no-underline text-black"
-                to='/remove-applicant'>
-              Remove Applicant
-            </Link>
-          </div>
-
-          <div>
-            <Link className="no-underline text-black"
                 to='/change-applicant-password'>
               Change Applicant Password
             </Link>
           </div>
         </div>
 
-        <div className="space-y-1 sm:space-y-0 sm:basis-1/5
+        <div className="space-y-1 sm:space-y-0 sm:basis-[40%] sm:justify-end
             sm:flex sm:flex-wrap sm:space-x-8">
           <div>
             <Link className="no-underline text-black"
-                to=''>Change Password</Link>
+                to='/change-password'>Change Password</Link>
           </div>
 
           <div>
-            <Link className="no-underline text-black" to=''>
+            <Link className="no-underline text-black" to='/logout'>
               Logout
             </Link>
           </div>
