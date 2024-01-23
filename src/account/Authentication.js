@@ -1,19 +1,30 @@
-import React, {createContext, useContext, useState} from "react";
+import React, {createContext, useContext, useEffect, useState} from "react";
+import Cookies from "js-cookie";
 
 const AuthContext = createContext(null);
 
 export const AuthProvider = ({children}) => {
   const [user, setUser] = useState({});
+
+  useEffect(() => {
+    let cookie = getCookie();
+    cookie? setUser(JSON.parse(cookie)): setUser({});
+  }, []);
+
+  const isLoggedIn = user?.userName && user?.id ? true : false;
+  
   function login(user) {
-    return setUser(user);
+    setUser(user);
+    setCookies(user);
   }
 
   function logout() {
-    return setUser({});
+    setUser({});
+    Cookies.remove('user');
   }
 
   return(
-      <AuthContext.Provider value={{user, login, logout}}>
+      <AuthContext.Provider value={{user, login, isLoggedIn, logout}}>
         {children}
       </AuthContext.Provider>
   )
@@ -21,4 +32,15 @@ export const AuthProvider = ({children}) => {
 
 export function useAuth() {
   return useContext(AuthContext);
+}
+
+function getCookie() {
+  return Cookies.get('user');
+}
+
+function setCookies(user) {
+  const expirationDate = new Date();
+    expirationDate.setDate(expirationDate.getDate() + 1);
+    Cookies.set('user', JSON.stringify(user), { expires: expirationDate });
+    return;
 }

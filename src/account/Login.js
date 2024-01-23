@@ -2,24 +2,31 @@ import React, {useState} from "react";
 
 import axios from "axios";
 import {useAuth} from "./Authentication";
-import {useNavigate} from "react-router";
+import {Navigate, useNavigate} from "react-router";
 
 const Login = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
   const navigate = useNavigate();
-  const {login} = useAuth();
+  const {login, isLoggedIn} = useAuth();
+
+  if(isLoggedIn) {
+    return (
+      <Navigate to='/' />
+    )
+  }
 
   return (
       <div className="flex items-center justify-center h-screen">
-      <form  className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4" onClick={handleLogin}>
+      <form onSubmit={handleLogin} className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
         <div className="mb-4">
-        <label htmlFor='email' className="block text-gray-700 text-sm font-bold mb-2">
-          Email:
+        <label htmlFor='text' className="block text-gray-700 text-sm font-bold mb-2">
+          Username:
         </label>
-          <input type='email' name='email' className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-              onChange={(e) => setUsername(e.target.value)}
+          <input type='text' name='username' className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              onChange={(e) => setUsername(e.target.value)} 
+              required
           />
         </div>
 
@@ -28,12 +35,13 @@ const Login = () => {
           Password:
         </label>
           <input type='password' name='password' className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-              onChange={(e) => setPassword(e.target.value)}
+              onChange={(e) => setPassword(e.target.value)} 
+              required
           />
         </div>
 
         <div className="flex items-center justify-center">
-        <button type="button" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+        <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
           Login
         </button>
         </div>
@@ -50,9 +58,13 @@ const Login = () => {
           }
         })
         .then(res => {
-          login(res.data);
+          if(res.data?.userName && res.data?.id){
+            login(res.data);
+          } else {
+            navigate('/');
+            alert(res.data);
+          }
         });
-    navigate('/');
   }
 };
 

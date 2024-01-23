@@ -96,8 +96,7 @@ const PostJob = () => {
   );
 
   async function handleSubmit(e) {
-    e.preventDefault();
-
+    
     const formData = new FormData(e.currentTarget);
 
     await axios.post('http://localhost:4414/user/admin/create-job-post', formData, {
