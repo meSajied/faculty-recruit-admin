@@ -4,6 +4,7 @@ import {useAuth} from "./Authentication";
 const Logout = () => {
   const {logout} = useAuth();
   logout();
+  
   return(
       <Navigate to='/login' />
   );

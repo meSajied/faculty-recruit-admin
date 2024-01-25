@@ -11,7 +11,7 @@ export const AuthProvider = ({children}) => {
     cookie? setUser(JSON.parse(cookie)): setUser({});
   }, []);
 
-  const isLoggedIn = user?.userName && user?.id ? true : false;
+  const isLoggedIn = !!(user?.userName && user?.id);
   
   function login(user) {
     setUser(user);
