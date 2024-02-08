@@ -36,7 +36,7 @@ const PostJob = () => {
           <div className="flex flex-col items-center">
             {showSuccess ? (
                 <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded flex">
-                  <p>Login failed. Please check your credentials and try again.</p>
+                  <p>Job opening created</p>
                   <span
                       className="ml-auto cursor-pointer"
                       onClick={() => setShowSuccess(false)}
@@ -46,7 +46,7 @@ const PostJob = () => {
                 </div>
             ) : showFailure ? (
                     <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded flex">
-                      <p>Login failed. Please check your credentials and try again.</p>
+                      <p>Could not create job opening.</p>
                       <span
                           className="ml-auto cursor-pointer"
                           onClick={() => setShowFailure(false)}
@@ -171,7 +171,7 @@ const PostJob = () => {
           'Content-Type': 'multipart/form-data'
         }
       }).then(res => {
-        res.msg === "OK"? setShowSuccess(true) : setShowFailure(true);
+        res.data.msg === "OK"? setShowSuccess(true) : setShowFailure(true);
       })
       clearData();
     }catch(e) {

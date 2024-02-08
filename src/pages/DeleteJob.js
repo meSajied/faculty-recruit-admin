@@ -30,7 +30,7 @@ const DeleteJob = () => {
           <div className="flex flex-col items-center">
             {showSuccess ? (
                 <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded flex">
-                  <p>Login failed. Please check your credentials and try again.</p>
+                  <p>Deleted job opening.</p>
                   <span
                       className="ml-auto cursor-pointer"
                       onClick={() => setShowSuccess(false)}
@@ -40,7 +40,7 @@ const DeleteJob = () => {
                 </div>
             ) : showFailure ? (
                 <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded flex">
-                  <p>Login failed. Please check your credentials and try again.</p>
+                  <p>Could not delete job opening</p>
                   <span
                       className="ml-auto cursor-pointer"
                       onClick={() => setShowFailure(false)}
@@ -104,10 +104,10 @@ const DeleteJob = () => {
     try {
       await axios.post('http://localhost:4414/user/admin/delete-job-post', formData, {
         headers: {
-          'Content-Type': 'multipart/form-data'
+          'Content-Type': "application/json"
         }
       }).then(res => {
-        res.msg === "OK"? setShowSuccess(true) : setShowFailure(true);
+        res.data.msg === "OK"? setShowSuccess(true) : setShowFailure(true);
       })
       clearData();
     }catch(e) {
