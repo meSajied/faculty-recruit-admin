@@ -60,7 +60,7 @@ const PostJob = () => {
             <form className="bg-gray-200 shadow-md rounded px-8 pt-6 pb-8 mb-4" onSubmit={handleSubmit}>
             <div>
               <input
-                  type="text"
+                  type="hidden"
                   name="id"
                   value={formData.id}
                   ref={input}
@@ -156,7 +156,7 @@ const PostJob = () => {
               <div className="flex">
                 <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">Submit</button>
                 <div className="mx-4"></div>
-                <button className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button" >Clear Form</button>
+                <button className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button" onClick={clearData} >Clear Form</button>
               </div>
             </div>
           </form>

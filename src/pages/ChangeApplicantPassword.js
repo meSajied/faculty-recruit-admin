@@ -75,6 +75,7 @@ const ChangeApplicantPassword = () => {
   );
 
   async function handleSubmit(e) {
+    e.preventDefault()
     try {
       await axios.post('http://localhost:4414/admin/change-applicant-password', formData, {
         headers: {

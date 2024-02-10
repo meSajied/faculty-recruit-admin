@@ -2,11 +2,15 @@ import React, {useState} from "react";
 import {Navbar} from "../components/Navbar";
 import axios from "axios";
 
+import {useAuth} from "../account/Authentication";
+
 const ChangePassword = () => {
+  const {user: {userName}} = useAuth();
   const [showSuccess, setShowSuccess] = useState(false);
   const [showFailure, setShowFailure] = useState(false);
 
   const [formData, setFormData] = useState({
+    userName: userName,
     oldPassword: "",
     newPassword: ""
   });
@@ -50,6 +54,15 @@ const ChangePassword = () => {
             ): null}
 
             <form className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4" onSubmit={handleSubmit}>
+            <div>
+              <input
+                  type="hidden"
+                  name="userName"
+                  value={formData.userName}
+                  required
+              />
+            </div>
+
             <div className="mb-4">
               <label htmlFor='old-password' className="block text-gray-700 text-sm font-bold mb-2">Old Password:</label>
               <input type='password' name='oldPassword'
@@ -75,8 +88,10 @@ const ChangePassword = () => {
   );
 
   async function handleSubmit(e) {
+    e.preventDefault();
+
     try {
-      await axios.post('http://localhost:4414/user/admin/changepass', formData, {
+      await axios.post('http://localhost:4414/admin/change-password', formData, {
         headers: {
           "Content-Type": "application/json"
         }

@@ -64,9 +64,11 @@ const DeleteJob = () => {
             </div>
 
             <div className="mb-4">
-              <label htmlFor="department">Position:</label>
-              <select name="department" onChange={e =>
-                  e.target.value} required>
+              <label htmlFor="department">Department:</label>
+              <select name="department" 
+                  value={formData.department}
+                  onChange={handleChange} 
+                  required>
                 <option value="">Select Department</option>
                 <option value="cse">CSE</option>
                 <option value="eee">EEE</option>
@@ -75,8 +77,10 @@ const DeleteJob = () => {
 
             <div className="mb-4">
               <label htmlFor="position">Position:</label>
-              <select name="position" onChange={e =>
-                  e.target.value} required>
+              <select name="position" 
+                  value={formData.position}
+                  onChange={handleChange}
+                  required>
                 <option value="">Select Position</option>
                 <option value="Professor">Professor</option>
                 <option value="Assistant Professor">Assistant Professor</option>
@@ -88,7 +92,7 @@ const DeleteJob = () => {
               <div className="flex">
                 <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">Submit</button>
                 <div className="mx-4"></div>
-                <button className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button">Clear Form</button>
+                <button className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button" onClick={clearData}>Clear Form</button>
               </div>
             </div>
           </form>
@@ -102,7 +106,7 @@ const DeleteJob = () => {
     e.preventDefault();
 
     try {
-      await axios.post('http://localhost:4414/user/admin/delete-job-post', formData, {
+      await axios.post('http://localhost:4414/admin/delete-job-post', formData, {
         headers: {
           'Content-Type': "application/json"
         }
