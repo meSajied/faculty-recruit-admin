@@ -28,7 +28,7 @@ const ChangePassword = () => {
         <div className="flex items-center justify-center h-screen">
           <div className="flex flex-col items-center">
             {showSuccess ? (
-                <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded flex">
+                <div className="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded flex">
                   <p>Password changed.</p>
                   <span
                       className="ml-auto cursor-pointer"
@@ -49,7 +49,7 @@ const ChangePassword = () => {
                 </div>
             ): null}
 
-            <form className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4" onClick={handleSubmit}>
+            <form className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4" onSubmit={handleSubmit}>
             <div className="mb-4">
               <label htmlFor='old-password' className="block text-gray-700 text-sm font-bold mb-2">Old Password:</label>
               <input type='password' name='oldPassword'

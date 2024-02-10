@@ -28,7 +28,7 @@ const ChangeApplicantPassword = () => {
       <div className="flex items-center justify-center h-screen">
         <div className="flex flex-col items-center">
           {showSuccess ? (
-              <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded flex">
+              <div className="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded flex">
                 <p>Applicant's password changed.</p>
                 <span
                     className="ml-auto cursor-pointer"
@@ -49,7 +49,7 @@ const ChangeApplicantPassword = () => {
               </div>
           ): null}
 
-          <form className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4" onClick={handleSubmit}>
+          <form className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4" onSubmit={handleSubmit}>
         <div className="mb-4">
           <label htmlFor='email' className="block text-gray-700 text-sm font-bold mb-2">Email of Applicant:</label>
           <input type='email' name='email'
@@ -76,7 +76,7 @@ const ChangeApplicantPassword = () => {
 
   async function handleSubmit(e) {
     try {
-      await axios.post('http://localhost:4414/user/admin//change-applicant-password', formData, {
+      await axios.post('http://localhost:4414/admin/change-applicant-password', formData, {
         headers: {
           "Content-Type": "application/json"
         }

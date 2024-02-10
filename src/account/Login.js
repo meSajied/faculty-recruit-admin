@@ -79,7 +79,7 @@ const Login = () => {
     e.preventDefault();
 
     try {
-      await axios.post('http://localhost:4414/account/administration/login', formData, {
+      await axios.post('http://localhost:4414/admin/login', formData, {
         headers: {
           "Content-Type": "application/json"
         }

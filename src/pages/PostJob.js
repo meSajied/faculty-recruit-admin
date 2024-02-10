@@ -1,11 +1,13 @@
 import axios from "axios";
 import {v4} from "uuid";
 import {Navbar} from "../components/Navbar";
-import {useState} from "react";
+import {useRef, useState} from "react";
 
 const PostJob = () => {
   const [showSuccess, setShowSuccess] = useState(false);
   const [showFailure, setShowFailure] = useState(false);
+
+  const input = useRef();
 
   const [formData, setFormData] = useState({
     id: v4(),
@@ -14,8 +16,7 @@ const PostJob = () => {
     department: "",
     position: "",
     advertised: "",
-    deadline: "",
-    file: null
+    deadline: ""
   });
 
   function handleChange(e) {
@@ -35,7 +36,7 @@ const PostJob = () => {
         <div className="flex items-center justify-center">
           <div className="flex flex-col items-center">
             {showSuccess ? (
-                <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded flex">
+                <div className="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded flex">
                   <p>Job opening created</p>
                   <span
                       className="ml-auto cursor-pointer"
@@ -59,9 +60,10 @@ const PostJob = () => {
             <form className="bg-gray-200 shadow-md rounded px-8 pt-6 pb-8 mb-4" onSubmit={handleSubmit}>
             <div>
               <input
-                  type="hidden"
+                  type="text"
                   name="id"
                   value={formData.id}
+                  ref={input}
                   required
               />
             </div>
@@ -142,9 +144,10 @@ const PostJob = () => {
               <input
                   type="file"
                   name="file"
+                  ref={input}
                   accept=".pdf"
                   className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-                  value={formData.file}
+                  
                   onChange={handleChange}
                   required
               />
@@ -153,7 +156,7 @@ const PostJob = () => {
               <div className="flex">
                 <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">Submit</button>
                 <div className="mx-4"></div>
-                <button className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button">Clear Form</button>
+                <button className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button" >Clear Form</button>
               </div>
             </div>
           </form>
@@ -166,12 +169,13 @@ const PostJob = () => {
     e.preventDefault();
 
     try {
-      await axios.post('http://localhost:4414/user/admin/create-job-post', formData, {
+      await axios.post('http://localhost:4414/admin/create-job-post', formData, {
         headers: {
           'Content-Type': 'multipart/form-data'
         }
       }).then(res => {
-        res.data.msg === "OK"? setShowSuccess(true) : setShowFailure(true);
+        console.log(res.data?.msg);
+        res.data?.msg === "OK"? setShowSuccess(true) : setShowFailure(true);
       })
       clearData();
     }catch(e) {
@@ -183,15 +187,18 @@ const PostJob = () => {
 
   function clearData() {
     setFormData({
-      id: "",
+      id: v4(),
       title: "",
       summary: "",
       department: "",
       position: "",
       advertised: "",
-      deadline: "",
-      file: null
-    })
+      deadline: ""
+    });
+
+    if(input.current) {
+      input.current.value = ""
+    }
   }
 };
 
