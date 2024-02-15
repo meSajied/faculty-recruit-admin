@@ -6,7 +6,7 @@ import {Navigate} from "react-router";
 
 const Login = () => {
   const [formData, setFormdata] = useState({
-    username: "",
+    userName: "",
     password: ""
   })
   const [showWarning, setShowWarning] = useState(false);
@@ -47,8 +47,8 @@ const Login = () => {
           <label htmlFor='text' className="block text-gray-700 text-sm font-bold mb-2">
             Username:
           </label>
-            <input type='text' name='username' className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                value={formData.username}
+            <input type='text' name='userName' className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                value={formData.userName}
                 onChange={handleChange} 
                 required
             />
@@ -102,7 +102,7 @@ const Login = () => {
 
   function clearData() {
     setFormdata({
-      username: "",
+      userName: "",
       password: ""
     })
   }

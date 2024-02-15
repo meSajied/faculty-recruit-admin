@@ -63,7 +63,6 @@ const PostJob = () => {
                   type="hidden"
                   name="id"
                   value={formData.id}
-                  ref={input}
                   required
               />
             </div>
