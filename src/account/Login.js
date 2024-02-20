@@ -79,7 +79,7 @@ const Login = () => {
     e.preventDefault();
 
     try {
-      await axios.post('https://0z548vh3-4414.euw.devtunnels.ms/admin/login', formData, {
+      await axios.post('http://localhost:4414/admin/login', formData, {
         headers: {
           "Content-Type": "application/json"
         }

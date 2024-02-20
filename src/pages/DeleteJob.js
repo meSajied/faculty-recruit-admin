@@ -1,23 +1,86 @@
 import axios from "axios";
 import {Navbar} from "../components/Navbar";
-import {useState} from "react";
+import React, {useEffect, useState} from "react";
+import {Link} from "react-router-dom";
 
 const DeleteJob = () => {
   const [showSuccess, setShowSuccess] = useState(false);
   const [showFailure, setShowFailure] = useState(false);
 
-  const [formData, setFormData] = useState({
-    title: "",
-    department: "",
-    position: ""
-  });
+  const [jobData, setJobData] = useState([]);
 
-  function handleChange(e) {
-    const {name, value} = e.target;
-    setFormData((prevState) => ({
-      ...prevState,
-      [name]: value
-    }))
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get("http://localhost:4414/job");
+        setJobData(response.data);
+      } catch (error) {
+        console.error("Error fetching job data:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  const getJobData = () => {
+    if(jobData.length === 0) {
+      return (<div className="p-3 font-garamond text-3xl text-center">No Openings</div>)
+    }else {
+      return jobData.map((item, index) => (
+          <div className="p-3 font-garamond text-[18px]" key={index}>
+            <div className="text-3xl">{item.title}</div>
+
+            <div className="flex">
+              <div className="flex-grow font-semibold m-2">
+                Department: {item.department}
+              </div>
+
+              <div className="m-2 flex-grow">
+                <div className="flex-grow font-semibold">
+                  Advertised: <code className="code">{item.advertised}</code>
+                </div>
+
+                <div className="flex-grow font-semibold">
+                  Deadline: <code className="code">{item.deadline}</code>
+                </div>
+              </div>
+            </div>
+
+            <div>
+              <div>{item.summary}</div>
+            </div>
+
+            <div className="mt-3">
+              <Link className="no-underline bg-gray-400 bordar rounded p-2 mx-2 text-white"
+                    to={`http://localhost:4414/pdfs/${item.id}`}>Job Details</Link>
+
+              <button className="no-underline bg-black bordar rounded p-2 mx-2 text-white"
+                    onClick={e => deleteJob(item.id, e)}>Delete</button>
+            </div>
+          </div>
+      ));
+    }
+  }
+
+  async function deleteJob(jobId, e) {
+    e.preventDefault();
+
+    try {
+      await axios.post("http://localhost:4414/admin/delete-job-post", {id: jobId}, {
+        headers: {
+          "Content-Type": "application/json"
+        }
+      }).then((res) => {
+        if(res.data?.msg === "OK") {
+          setShowSuccess(true)
+        }else {
+          setShowFailure(true)
+        }
+      })
+    }catch(e) {
+      setShowFailure(true)
+      console.log(e)
+    }
   }
 
   return(
@@ -37,7 +100,7 @@ const DeleteJob = () => {
                   >
               &times;
             </span>
-                </div>
+            </div>
             ) : showFailure ? (
                 <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded flex">
                   <p>Could not delete job opening</p>
@@ -50,84 +113,14 @@ const DeleteJob = () => {
                 </div>
             ): null}
 
-            <form className="bg-gray-200 shadow-md rounded px-8 pt-6 pb-8 mb-4" onSubmit={handleSubmit}>
             <div>
-              <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="title">Title:</label>
-              <input
-                  className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                  type="text"
-                  name="title"
-                  value={formData.title}
-                  onChange={handleChange}
-                  required
-              />
+              {getJobData()}
             </div>
-
-            <div className="mb-4">
-              <label htmlFor="department">Department:</label>
-              <select name="department" 
-                  value={formData.department}
-                  onChange={handleChange} 
-                  required>
-                <option value="">Select Department</option>
-                <option value="cse">CSE</option>
-                <option value="eee">EEE</option>
-              </select>
-            </div>
-
-            <div className="mb-4">
-              <label htmlFor="position">Position:</label>
-              <select name="position" 
-                  value={formData.position}
-                  onChange={handleChange}
-                  required>
-                <option value="">Select Position</option>
-                <option value="Professor">Professor</option>
-                <option value="Assistant Professor">Assistant Professor</option>
-                <option value="Associate Professor">Associate Professor</option>
-                <option value="Lecturer">Lecturer</option>
-              </select>
-            </div>
-            <div className="mb-6">
-              <div className="flex">
-                <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">Submit</button>
-                <div className="mx-4"></div>
-                <button className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button" onClick={clearData}>Clear Form</button>
-              </div>
-            </div>
-          </form>
           </div>
         </div>
 
       </div>
   );
-
-  async function handleSubmit(e) {
-    e.preventDefault();
-
-    try {
-      await axios.post('http://localhost:4414/admin/delete-job-post', formData, {
-        headers: {
-          'Content-Type': "application/json"
-        }
-      }).then(res => {
-        res.data.msg === "OK"? setShowSuccess(true) : setShowFailure(true);
-      })
-      clearData();
-    }catch(e) {
-      console.log(e);
-      setShowFailure(true);
-      clearData();
-    }
-  }
-
-  function clearData() {
-    setFormData({
-      title: "",
-      department: "",
-      position: ""
-    })
-  }
 };
 
 export {DeleteJob};
