@@ -96,12 +96,20 @@ const ChangePassword = () => {
           "Content-Type": "application/json"
         }
       }).then(res => {
-        res.data.msg === "OK" ? setShowSuccess(true) : setShowFailure(true)
-      })
+        res.data?.msg === "OK" ? setShowSuccess(true) : setShowFailure(true)
+      }).then(clearData)
     }catch(e) {
+      clearData()
       console.log(e);
       setShowFailure(true);
     }
+  }
+  
+  function clearData() {
+    setFormData({
+      oldPassword: "",
+      newPassword: ""
+    })
   }
 }
 
