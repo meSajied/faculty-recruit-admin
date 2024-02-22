@@ -168,7 +168,7 @@ const PostJob = () => {
     e.preventDefault();
 
     try {
-      await axios.post('http://localhost:4414/admin/create-job-post', formData, {
+      await axios.post('https://faculty-recruit-server-vcgo.onrender.com/admin/create-job-post', formData, {
         headers: {
           'Content-Type': 'multipart/form-data'
         }

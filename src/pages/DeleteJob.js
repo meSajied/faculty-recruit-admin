@@ -12,7 +12,7 @@ const DeleteJob = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get("http://localhost:4414/job");
+        const response = await axios.get("https://faculty-recruit-server-vcgo.onrender.com/job");
         setJobData(response.data);
       } catch (error) {
         console.error("Error fetching job data:", error);
@@ -52,7 +52,7 @@ const DeleteJob = () => {
 
             <div className="mt-3">
               <Link className="no-underline bg-gray-400 bordar rounded p-2 mx-2 text-white"
-                    to={`http://localhost:4414/pdfs/${item.id}`}>Job Details</Link>
+                    to={`https://faculty-recruit-server-vcgo.onrender.com/pdfs/${item.id}`}>Job Details</Link>
 
               <button className="no-underline bg-black bordar rounded p-2 mx-2 text-white"
                     onClick={e => deleteJob(item.id, e)}>Delete</button>
@@ -66,7 +66,7 @@ const DeleteJob = () => {
     e.preventDefault();
 
     try {
-      await axios.post("http://localhost:4414/admin/delete-job-post", {id: jobId}, {
+      await axios.post("https://faculty-recruit-server-vcgo.onrender.com/admin/delete-job-post", {id: jobId}, {
         headers: {
           "Content-Type": "application/json"
         }

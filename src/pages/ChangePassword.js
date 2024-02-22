@@ -91,7 +91,7 @@ const ChangePassword = () => {
     e.preventDefault();
 
     try {
-      await axios.post('http://localhost:4414/admin/change-password', formData, {
+      await axios.post('https://faculty-recruit-server-vcgo.onrender.com/admin/change-password', formData, {
         headers: {
           "Content-Type": "application/json"
         }
